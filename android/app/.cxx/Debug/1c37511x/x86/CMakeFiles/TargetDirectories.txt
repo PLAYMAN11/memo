@@ -1,0 +1,2 @@
+/home/emmanuel/Documents/UTCH/Semestre 5/Desarrollo movil/U2/memo/android/app/.cxx/Debug/1c37511x/x86/CMakeFiles/edit_cache.dir
+/home/emmanuel/Documents/UTCH/Semestre 5/Desarrollo movil/U2/memo/android/app/.cxx/Debug/1c37511x/x86/CMakeFiles/rebuild_cache.dir
