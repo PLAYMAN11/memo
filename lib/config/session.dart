@@ -71,7 +71,7 @@ AlertDialog NewGame(BuildContext context){
 
 AlertDialog Restart(BuildContext context){
   return AlertDialog(
-    title: Text("¿Desea voltear todas las cartas?"),
+    title: Text("¿Desea reiniciar esta partida?"),
     actions: [
       TextButton(onPressed: (){
         for(int i=0; i<controles.length; i++){

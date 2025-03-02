@@ -14,8 +14,7 @@ class _BottomMenuState extends State<BottomMenu> {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Colors.blue,
-      shadowColor: Colors.black,
+      color: Colors.teal,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
