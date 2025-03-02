@@ -3,10 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:memo/config/config.dart';
+import 'package:memo/widgets/bottomAppBar.dart';
 import 'dart:io';
 
 import '../config/session.dart';
+import '../db/sqlite.dart';
 import '../widgets/botonera.dart';
+import '../widgets/tablero.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,6 +20,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late Timer timer;
+
+  SampleItem? selectedItem;
   @override
   void initState() {
     super.initState();
@@ -33,21 +38,38 @@ class _HomeState extends State<Home> {
           TextSpan(text: "Victorias: ${wins} "),
           TextSpan(text: "Derrotas: ${loses} ")
         ])),
-        actions: <Widget>[
-          IconButton(onPressed: () {
-            if (Platform.isAndroid || Platform.isIOS){
-             // Navigator.pop(context);
-              //SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-              SystemNavigator.pop();
-
-            }
-            if (Platform.isLinux || Platform.isWindows){
-              exit(0);
-            }
-          }, icon: Icon(Icons.exit_to_app))
+        actions: [
+          PopupMenuButton<SampleItem>(
+            initialValue: selectedItem,
+            onSelected: (SampleItem item) {
+              setState(() {
+                selectedItem = item;
+              });
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleItem>>[
+              PopupMenuItem<SampleItem>(
+                value: SampleItem.itemTwo,
+                child: Text('Consultar'),
+                onTap: () => {
+                  Sqlite.consulta(),
+                  showDialog(
+                      context: context,
+                      builder: (context) => Consultar(context))
+                },
+              ),
+              PopupMenuItem<SampleItem>(
+                value: SampleItem.itemThree,
+                child: Text('Salir'),
+                onTap: () => {
+                  showDialog(
+                      context: context, builder: (context) => Salir(context))
+                },
+              ),
+            ],
+          ),
         ],
       ),
-      body: const Botonera(),
+      body: const Botonera()
 
     );
   }

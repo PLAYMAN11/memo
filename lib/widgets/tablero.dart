@@ -8,11 +8,12 @@ import 'package:flutter/services.dart';
 import 'package:memo/config/config.dart';
 import 'package:memo/db/sqlite.dart';
 import 'package:memo/db/user.dart';
+import 'package:memo/widgets/bottomAppBar.dart';
 import 'package:memo/widgets/parrilla.dart';
 
 import '../config/session.dart';
 
-enum SampleItem { itemOne, itemTwo, itemThree }
+enum SampleItem { itemOne, itemTwo, itemThree, itemFour }
 
 class Tablero extends StatefulWidget {
   final Nivel? nivel;
@@ -30,6 +31,7 @@ class _TableroState extends State<Tablero> {
   @override
   void initState() {
     super.initState();
+    parrillaKey = DateTime.now().millisecondsSinceEpoch.toString();
     timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       setState(() {});
     });
@@ -67,20 +69,7 @@ class _TableroState extends State<Tablero> {
                   value: SampleItem.itemOne,
                   child: Text('Reiniciar'),
                   onTap: () => {
-                        for(int i=0; i<controles.length; i++){
-                          if (!controles[i].state!.isFront) {
-                            controles[i].toggleCard(),
-                          },
-                          estados[i] = true
-                        },
-                        setState(() {
-                          prevclicked = -1;
-                          pair = Gsize;
-                          counter.reset();
-                          moves = 0;
-                          flag = false;
-                          habilitado = true;
-                        }),
+                        showDialog(context: context, builder: (context)=>Restart(context)),
                       }),
               PopupMenuItem<SampleItem>(
                 value: SampleItem.itemTwo,
@@ -100,11 +89,24 @@ class _TableroState extends State<Tablero> {
                       context: context, builder: (context) => Salir(context))
                 },
               ),
+              PopupMenuItem<SampleItem>(
+                  value: SampleItem.itemFour,
+                  child: Text('Nuevo Juego'),
+                  onTap: () =>
+                  {
+                    showDialog(
+                        context: context,
+                        builder: (context) => NewGame(context)),
+                  }
+              ),
             ],
+
           ),
+
         ],
       ),
-      body: Parrilla(widget.nivel),
+      body: Parrilla(widget.nivel, key: ValueKey(parrillaKey)),
+      bottomNavigationBar: const BottomMenu(),
     );
   }
 }

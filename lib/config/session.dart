@@ -21,6 +21,7 @@ bool isfirst = true;
 double pair = 0;
 int? prevclicked;
 bool? flag, habilitado;
+String? parrillaKey;
 
 AlertDialog Consultar(BuildContext context) {
   return AlertDialog(
@@ -50,6 +51,48 @@ AlertDialog Consultar(BuildContext context) {
 Future<User?> getUser() async {
   user = await Sqlite.consulta();
   return user;
+}
+
+AlertDialog NewGame(BuildContext context){
+ return AlertDialog(
+   title: Text("¿Empezar un nuevo juego?"),
+   content: Text("Se tomará como una partida perdida"),
+   actions: [
+     TextButton(onPressed: (){
+     parrillaKey = DateTime.now().millisecondsSinceEpoch.toString();
+     Navigator.of(context).pop();
+     }, child: Text("Si")),
+     TextButton(onPressed: (){
+       Navigator.of(context).pop();
+     }, child: Text("No"))
+   ],
+ );
+}
+
+AlertDialog Restart(BuildContext context){
+  return AlertDialog(
+    title: Text("¿Desea voltear todas las cartas?"),
+    actions: [
+      TextButton(onPressed: (){
+        for(int i=0; i<controles.length; i++){
+          if (!controles[i].state!.isFront) {
+            controles[i].toggleCard();
+        };
+        estados[i] = true;
+        };
+        prevclicked = -1;
+        pair = Gsize;
+        counter.reset();
+        moves = 0;
+        flag = false;
+        habilitado = true;
+        Navigator.of(context).pop();
+      }, child: Text("Si")),
+      TextButton(onPressed: (){
+        Navigator.of(context).pop();
+      }, child: Text("No"))
+    ],
+  );
 }
 
 AlertDialog Salir(BuildContext context) {
