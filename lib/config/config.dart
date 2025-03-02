@@ -1,10 +1,16 @@
 library config.globals;
 
+import 'dart:io';
+
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:memo/utilis/detalles.dart';
 
+import '../db/sqlite.dart';
+import '../db/user.dart';
 import '../widgets/tablero.dart';
+import 'session.dart';
 
 
 enum Nivel {facil, medio, dificil,imposible}
@@ -73,11 +79,7 @@ List<Detalles> botones =[
 List<String> baraja =[];
 List<FlipCardController> controles =[];
 List<bool> estados = [];
-double Gsize = 0;
-final counter = Stopwatch();
-int moves =0;
-int wins= 0;
-int loses=0;
+
 
 void barajar(Nivel nivel){
   int size =0;

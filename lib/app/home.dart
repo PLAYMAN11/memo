@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:memo/config/config.dart';
 import 'dart:io';
 
+import '../config/session.dart';
 import '../widgets/botonera.dart';
 
 class Home extends StatefulWidget {

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../config/config.dart';
 import 'package:flip_card/flip_card.dart';
+import '../config/session.dart';
 
 class Parrilla extends StatefulWidget {
   final Nivel? nivel;
@@ -15,12 +16,10 @@ class Parrilla extends StatefulWidget {
 }
 
 class _ParrillaState extends State<Parrilla> {
-  int? prevclicked;
-  bool? flag, habilitado, isfirst;
+
   bool mostrarCartas = true;
 
   final TextStyle downtext = TextStyle(color: Colors.grey);
-  double pair = 0;
 
   @override
   void initState() {
@@ -32,7 +31,7 @@ class _ParrillaState extends State<Parrilla> {
     prevclicked = -1;
     flag = false;
     habilitado = false;
-    isfirst = true;
+    isfirst =true;
     pair = Gsize;
     counter.stop();
     loses++;
