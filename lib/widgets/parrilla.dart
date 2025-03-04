@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:memo/config/counter.dart';
 import '../config/config.dart';
 import 'package:flip_card/flip_card.dart';
 import '../config/session.dart';
@@ -33,14 +34,13 @@ class _ParrillaState extends State<Parrilla> {
     habilitado = false;
     isfirst =true;
     pair = Gsize;
-    counter.stop();
     loses++;
     moves = 0;
 
     Future.delayed(Duration.zero, () {
       for (var controller in controles) {
         controller.toggleCard();
-        counter.reset();
+        resetTimer();
       }
     });
 
@@ -52,7 +52,7 @@ class _ParrillaState extends State<Parrilla> {
         habilitado = true;
         mostrarCartas = false;
         isfirst = false;
-        counter.start();
+        startTimer();
       });
     });
   }
@@ -104,12 +104,12 @@ class _ParrillaState extends State<Parrilla> {
                         if (pair == 0) {
                           wins++;
                           loses--;
-                          counter.stop();
+                          stopTimer();
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
                               title: Text("Juego Terminado"),
-                              content: Text("Tu Tiempo: ${formatElapsedTime(counter.elapsed)}\n"
+                              content: Text("Tu Tiempo: ${getTime()}\n"
                                   "Movimientos: ${moves}", style: TextStyle(fontSize: 18),),
                               actions: [
                                 TextButton(

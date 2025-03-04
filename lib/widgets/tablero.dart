@@ -6,6 +6,7 @@ import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:memo/config/config.dart';
+import 'package:memo/config/counter.dart';
 import 'package:memo/db/sqlite.dart';
 import 'package:memo/db/user.dart';
 import 'package:memo/widgets/bottomAppBar.dart';
@@ -52,7 +53,7 @@ class _TableroState extends State<Tablero> {
               )),
               TextSpan(
                   text:
-                      "${formatElapsedTime(counter.elapsed)}\nMovimientos: ${moves}"),
+                      "${getTime()}\nMovimientos: ${moves}"),
             ])),
           ],
         ),

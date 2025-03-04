@@ -12,7 +12,6 @@ import '../db/sqlite.dart';
 import '../db/user.dart';
 
 double Gsize = 0;
-final counter = Stopwatch();
 int moves = 0;
 int wins = 0;
 int loses = 0;
@@ -68,24 +67,13 @@ AlertDialog NewGame(BuildContext context){
    ],
  );
 }
-
 AlertDialog Restart(BuildContext context){
   return AlertDialog(
-    title: Text("¿Desea reiniciar esta partida?"),
+    title: Text("¿Empezar un nuevo juego?"),
+    content: Text("No se contará como partida perdida"),
     actions: [
       TextButton(onPressed: (){
-        for(int i=0; i<controles.length; i++){
-          if (!controles[i].state!.isFront) {
-            controles[i].toggleCard();
-        };
-        estados[i] = true;
-        };
-        prevclicked = -1;
-        pair = Gsize;
-        counter.reset();
-        moves = 0;
-        flag = false;
-        habilitado = true;
+        parrillaKey = DateTime.now().millisecondsSinceEpoch.toString();
         Navigator.of(context).pop();
       }, child: Text("Si")),
       TextButton(onPressed: (){
