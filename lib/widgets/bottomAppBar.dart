@@ -4,7 +4,9 @@ import 'package:memo/config/config.dart';
 import '../config/session.dart' as session;
 
 class BottomMenu extends StatefulWidget {
-  const BottomMenu({super.key});
+  final Nivel? nivel;
+  
+  const BottomMenu(this.nivel, {super.key});
 
   @override
   State<BottomMenu> createState() => _BottomMenuState();
@@ -22,7 +24,7 @@ class _BottomMenuState extends State<BottomMenu> {
               onPressed: () {
                 showDialog(
                     context: context,
-                    builder: (context) => session.SalirLvl(context));
+                    builder: (context) => session.SalirLvl(context, widget.nivel));
               },
               icon: Icon(
                 Icons.power_settings_new,

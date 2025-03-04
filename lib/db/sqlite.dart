@@ -22,20 +22,25 @@ class Sqlite {
         id integer primary key not null,
         wins integer not null,
         loses integer not null,
+        difficulty text not null,
         date text not null
         )
        """;
     await db.execute(sql);
   }
-  static Future<User?> consulta() async {
+  static Future<List <User>?> consulta() async {
     final iguana.Database db = await Sqlite.db();
     final List<Map<String, dynamic>> query = await db.query(
       "Users",
-      orderBy: "id DESC",  
-      limit: 1,
+      orderBy: "id DESC",
+
     );
     if (query.isNotEmpty) {
-      return User.deMap(query.first); 
+      return  query.map(
+            (e) {
+          return User.deMap(e);
+        },
+      ).toList();
     } else {
       return null; 
     }

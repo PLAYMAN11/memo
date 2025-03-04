@@ -3,9 +3,12 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:memo/config/counter.dart';
+import '../app/home.dart';
 import '../config/config.dart';
 import 'package:flip_card/flip_card.dart';
 import '../config/session.dart';
+import '../db/sqlite.dart';
+import '../db/user.dart';
 
 class Parrilla extends StatefulWidget {
   final Nivel? nivel;
@@ -52,7 +55,7 @@ class _ParrillaState extends State<Parrilla> {
         habilitado = true;
         mostrarCartas = false;
         isfirst = false;
-        startTimer(context);
+        startTimer(context, widget.nivel);
       });
     });
   }
@@ -102,22 +105,42 @@ class _ParrillaState extends State<Parrilla> {
                         pair--;
                         moves++;
                         if (pair == 0) {
-                          wins++;
-                          loses--;
+                          ++wins;
+                          --loses;
                           stopTimer();
                           showDialog(
                             context: context,
+                            barrierDismissible: false,
                             builder: (context) => AlertDialog(
                               title: Text("Juego Terminado"),
                               content: Text("Tu Tiempo: ${getTime()}\n"
                                   "Movimientos: ${moves}", style: TextStyle(fontSize: 18),),
                               actions: [
                                 TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text("OK"),
-                                ),
+                                    onPressed: () {
+                                      parrillaKey = DateTime.now().millisecondsSinceEpoch.toString();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text("Nueva Partida")),
+                                TextButton(
+                                    onPressed: () {
+                                      stopTimer();
+                                      resetTimer();
+                                      DateTime now = DateTime.now();
+
+                                      String formattedDate =
+                                          "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
+                                      Sqlite.add(User(wins, loses, formattedDate, widget.nivel?.name));
+                                      resetGameState();
+                                      wins = 0;
+                                      loses = 0;
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => Home()),
+                                            (Route<dynamic> route) => false,
+                                      );
+                                    },
+                                    child: Text("Salir"))
                               ],
                             ),
                           );

@@ -57,7 +57,20 @@ class _HomeState extends State<Home> {
                 child: Text('Salir'),
                 onTap: () => {
                   showDialog(
-                      context: context, builder: (context) => SalirLvl(context))
+                      context: context, builder: (context) => 
+                  AlertDialog(
+                    title: Text("Desea Salir?"),
+                    actions: [
+                      TextButton(onPressed: (){
+
+                          SystemNavigator.pop();
+                      }, child: Text("Si")),
+                      TextButton(onPressed: (){
+                        Navigator.of(context).pop();
+                      }, child: Text("No"))
+                    ],
+                    
+                  )  )
                 },
               ),
             ],

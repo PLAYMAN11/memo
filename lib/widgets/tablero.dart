@@ -10,6 +10,7 @@ import 'package:memo/config/counter.dart';
 import 'package:memo/db/sqlite.dart';
 import 'package:memo/db/user.dart';
 import 'package:memo/widgets/bottomAppBar.dart';
+import 'package:memo/widgets/consulta.dart';
 import 'package:memo/widgets/parrilla.dart';
 
 import '../config/session.dart';
@@ -42,19 +43,26 @@ class _TableroState extends State<Tablero> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.teal,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text.rich(TextSpan(children: [
-              TextSpan(text: "Nivel: ${widget.nivel?.name}\n"),
+              TextSpan(text: "Nivel: ${widget.nivel?.name}"),
+              WidgetSpan(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 12, 0),
+                  )),
               WidgetSpan(
                 child: Icon(Icons.access_alarm),
               ),
               TextSpan(text: "${getTime()}"),
               WidgetSpan(
-                  child: Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                  )), 
-              TextSpan(text:"Movimientos: ${moves}")
+                  child: Padding(
+                padding: EdgeInsets.fromLTRB(12, 0, 0, 0),
+              )),
+              TextSpan(text: "Movimientos: ${moves}")
             ], style: TextStyle(fontSize: 17))),
           ],
         ),
@@ -79,7 +87,6 @@ class _TableroState extends State<Tablero> {
                 value: SampleItem.itemTwo,
                 child: Text('Consultar'),
                 onTap: () => {
-                  Sqlite.consulta(),
                   showDialog(
                       context: context,
                       builder: (context) => Consultar(context))
@@ -90,7 +97,7 @@ class _TableroState extends State<Tablero> {
                 child: Text('Salir'),
                 onTap: () => {
                   showDialog(
-                      context: context, builder: (context) => SalirLvl(context))
+                      context: context, builder: (context) => SalirLvl(context, widget.nivel))
                 },
               ),
               PopupMenuItem<SampleItem>(
@@ -106,7 +113,7 @@ class _TableroState extends State<Tablero> {
         ],
       ),
       body: Parrilla(widget.nivel, key: ValueKey(parrillaKey)),
-      bottomNavigationBar: const BottomMenu(),
+      bottomNavigationBar: BottomMenu(widget.nivel),
     );
   }
 }
