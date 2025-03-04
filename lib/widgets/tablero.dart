@@ -52,7 +52,7 @@ class _TableroState extends State<Tablero> {
               TextSpan(text: "Nivel: ${widget.nivel?.name}"),
               WidgetSpan(
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 12, 0),
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                   )),
               WidgetSpan(
                 child: Icon(Icons.access_alarm),
@@ -60,7 +60,7 @@ class _TableroState extends State<Tablero> {
               TextSpan(text: "${getTime()}"),
               WidgetSpan(
                   child: Padding(
-                padding: EdgeInsets.fromLTRB(12, 0, 0, 0),
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
               )),
               TextSpan(text: "Movimientos: ${moves}")
             ], style: TextStyle(fontSize: 17))),

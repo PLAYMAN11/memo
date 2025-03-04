@@ -29,7 +29,7 @@ class _consultaState extends State<consulta> {
         body: Builder(builder: (context) {
           consultar();
           if (users!.isEmpty) {
-            return CircularProgressIndicator();
+            return Center(child: Text("Aun no hay datos", style: TextStyle(fontSize:40),));
           }
           return ListView.builder(
             itemCount: users!.length,

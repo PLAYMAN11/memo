@@ -35,15 +35,11 @@ class Sqlite {
       orderBy: "id DESC",
 
     );
-    if (query.isNotEmpty) {
       return  query.map(
             (e) {
           return User.deMap(e);
         },
       ).toList();
-    } else {
-      return null; 
-    }
   }
 
   static Future<int> add(User user) async {
