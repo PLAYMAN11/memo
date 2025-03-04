@@ -25,18 +25,13 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
-      setState(() {});
-    });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text.rich(TextSpan(children: [
-          TextSpan(text: "Memo \n"),
-          TextSpan(text: "Victorias: ${wins} "),
-          TextSpan(text: "Derrotas: ${loses} ")
+          TextSpan(text: "Memorama"),
         ])),
         actions: [
           PopupMenuButton<SampleItem>(
@@ -62,12 +57,14 @@ class _HomeState extends State<Home> {
                 child: Text('Salir'),
                 onTap: () => {
                   showDialog(
-                      context: context, builder: (context) => Salir(context))
+                      context: context, builder: (context) => SalirLvl(context))
                 },
               ),
             ],
           ),
         ],
+        automaticallyImplyLeading: false,
+
       ),
       body: const Botonera()
 

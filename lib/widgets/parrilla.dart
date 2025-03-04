@@ -52,7 +52,7 @@ class _ParrillaState extends State<Parrilla> {
         habilitado = true;
         mostrarCartas = false;
         isfirst = false;
-        startTimer();
+        startTimer(context);
       });
     });
   }

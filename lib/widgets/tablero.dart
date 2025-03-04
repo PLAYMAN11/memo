@@ -43,18 +43,19 @@ class _TableroState extends State<Tablero> {
     return Scaffold(
       appBar: AppBar(
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text.rich(TextSpan(children: [
-              TextSpan(text: "Nivel: ${widget.nivel?.name}"),
+              TextSpan(text: "Nivel: ${widget.nivel?.name}\n"),
               WidgetSpan(
-                  child: Padding(
-                padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
                 child: Icon(Icons.access_alarm),
-              )),
-              TextSpan(
-                  text:
-                      "${getTime()}\nMovimientos: ${moves}"),
-            ])),
+              ),
+              TextSpan(text: "${getTime()}"),
+              WidgetSpan(
+                  child: Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  )), 
+              TextSpan(text:"Movimientos: ${moves}")
+            ], style: TextStyle(fontSize: 17))),
           ],
         ),
         actions: [
@@ -70,7 +71,9 @@ class _TableroState extends State<Tablero> {
                   value: SampleItem.itemOne,
                   child: Text('Reiniciar'),
                   onTap: () => {
-                        showDialog(context: context, builder: (context)=>Restart(context)),
+                        showDialog(
+                            context: context,
+                            builder: (context) => Restart(context)),
                       }),
               PopupMenuItem<SampleItem>(
                 value: SampleItem.itemTwo,
@@ -87,23 +90,19 @@ class _TableroState extends State<Tablero> {
                 child: Text('Salir'),
                 onTap: () => {
                   showDialog(
-                      context: context, builder: (context) => Salir(context))
+                      context: context, builder: (context) => SalirLvl(context))
                 },
               ),
               PopupMenuItem<SampleItem>(
                   value: SampleItem.itemFour,
                   child: Text('Nuevo Juego'),
-                  onTap: () =>
-                  {
-                    showDialog(
-                        context: context,
-                        builder: (context) => NewGame(context)),
-                  }
-              ),
+                  onTap: () => {
+                        showDialog(
+                            context: context,
+                            builder: (context) => NewGame(context)),
+                      }),
             ],
-
           ),
-
         ],
       ),
       body: Parrilla(widget.nivel, key: ValueKey(parrillaKey)),

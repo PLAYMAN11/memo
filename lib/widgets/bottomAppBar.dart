@@ -22,7 +22,7 @@ class _BottomMenuState extends State<BottomMenu> {
               onPressed: () {
                 showDialog(
                     context: context,
-                    builder: (context) => session.Salir(context));
+                    builder: (context) => session.SalirLvl(context));
               },
               icon: Icon(
                 Icons.power_settings_new,
