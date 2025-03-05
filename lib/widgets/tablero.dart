@@ -45,25 +45,19 @@ class _TableroState extends State<Tablero> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.teal,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+        title: Wrap(
           children: [
-            Text.rich(TextSpan(children: [
-              TextSpan(text: "Nivel: ${widget.nivel?.name}"),
-              WidgetSpan(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  )),
-              WidgetSpan(
-                child: Icon(Icons.access_alarm),
-              ),
-              TextSpan(text: "${getTime()}"),
-              WidgetSpan(
-                  child: Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              )),
-              TextSpan(text: "Movimientos: ${moves}")
-            ], style: TextStyle(fontSize: 17))),
+            Text.rich(
+                TextSpan(children: [
+                  TextSpan(text: "Nivel: ${widget.nivel?.name}\n"),
+                  WidgetSpan(
+                    child: Icon(Icons.access_alarm),
+                  ),
+                  TextSpan(text: "${getTime()}"),
+                  WidgetSpan(child: Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 0))),
+                  TextSpan(text: "Movimientos: ${moves}")
+                ], style: TextStyle(fontSize: 22)),
+                overflow: TextOverflow.ellipsis),
           ],
         ),
         actions: [
@@ -97,7 +91,8 @@ class _TableroState extends State<Tablero> {
                 child: Text('Salir'),
                 onTap: () => {
                   showDialog(
-                      context: context, builder: (context) => SalirLvl(context, widget.nivel))
+                      context: context,
+                      builder: (context) => SalirLvl(context, widget.nivel))
                 },
               ),
               PopupMenuItem<SampleItem>(

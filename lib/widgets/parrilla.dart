@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class Parrilla extends StatefulWidget {
 class _ParrillaState extends State<Parrilla> {
 
   bool mostrarCartas = true;
+  int space =0;
 
   final TextStyle downtext = TextStyle(color: Colors.grey);
 
@@ -39,6 +41,7 @@ class _ParrillaState extends State<Parrilla> {
     pair = Gsize;
     loses++;
     moves = 0;
+    space= (Platform.isLinux ? 10 :4);
 
     Future.delayed(Duration.zero, () {
       for (var controller in controles) {
@@ -79,7 +82,7 @@ class _ParrillaState extends State<Parrilla> {
             itemCount: baraja.length,
             shrinkWrap: true,
             gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: space) ,
             itemBuilder: (context, index) {
               return FlipCard(
                 onFlip: () {
